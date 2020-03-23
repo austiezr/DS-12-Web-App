@@ -2,6 +2,7 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -17,7 +18,8 @@ class User(db.Model):
 
 class Tweet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_name = db.Column(db.String(128))
+    user_name = db.Column(db.String(128), db.ForeignKey('user.name'))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     content = db.Column(db.String(140))
 
 
