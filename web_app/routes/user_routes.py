@@ -37,4 +37,4 @@ def create_user():
     db.session.add(created_user)
     db.session.commit()
     flash(f"User '{created_user.name}' created successfully!", "success")
-    return redirect(f"/users")
+    return redirect("/users")
