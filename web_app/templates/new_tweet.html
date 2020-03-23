@@ -1,0 +1,25 @@
+<!-- web_app/templates/new_tweet.html -->
+
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <h1>New Tweet Page</h1>
+
+    <p>Please fill out the form and submit to create a new Tweet!</p>
+
+    <form action="/tweets/create" method="POST">
+
+        <label>Content:</label>
+        <input type="text" name="content" placeholder="This a tweet" value="This a tweet">
+
+        <label>User:</label>
+        <select name="user_name">
+            {% for user in users %}
+                <option value={{user.name}}>{{ user.name }}</option>
+            {% endfor %}
+        </select>
+
+        <button>Submit</button>
+    </form>
+{% endblock %}
