@@ -32,9 +32,7 @@ def new_user():
 @user_routes.route('/users/create', methods=['POST'])
 def create_user():
     print('FORM DATA:', dict(request.form))
-    created_user = User(name=request.form['name'],
-                        birthdate=request.form['birthdate'],
-                        dogs_cats=request.form['dog_or_cat'])
+    created_user = User(name=request.form['name'])
     db.session.add(created_user)
     db.session.commit()
     flash(f"User '{created_user.name}' created successfully!", "success")
