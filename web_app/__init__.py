@@ -11,6 +11,7 @@ from web_app.routes.admin_routes import admin_routes
 
 from dotenv import load_dotenv
 import os
+import psycopg2 as pg
 
 load_dotenv()
 
@@ -18,13 +19,17 @@ load_dotenv()
 class Config:
     """ Base configuration reading from .env file """
     SECRET_KEY = os.environ.get("SECRET_KEY")
+    LOCAL_KEY = os.environ.get('LOCAL_KEY')
+    DB_URL = os.environ.get('DATABASE_URL')
 
 
 def create_app():
     app = Flask(__name__)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] =\
-        'sqlite:///web_app.db'
+    if Config.LOCAL_KEY:
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///web_app.db'
+    else:
+        app.config['SQLALCHEMY_DATABASE_URI'] = Config.DB_URL
 
     db.init_app(app)
     migrate.init_app(app, db)
