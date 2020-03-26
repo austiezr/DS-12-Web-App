@@ -15,7 +15,7 @@
     {% if tweets %}
         <ul>
             {% for tweet in tweets %}
-                <li>{{ tweet.user_name }} said "{{ tweet.content }}"</li>
+                <li>{{ tweet.user }} said "{{ tweet.content }}"</li>
             {% endfor %}
         </ul>
 
