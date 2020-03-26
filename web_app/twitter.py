@@ -22,8 +22,6 @@ TWITTER_AUTH.set_access_token(
 
 TWITTER = tweepy.API(TWITTER_AUTH)
 
-BASILICA = basilica.Connection(os.getenv('BASILICA_KEY'))
-
 
 def gen_tweets(q='#lambdaschool',
                count=100,
@@ -90,4 +88,3 @@ def get_tweets(username):
     username = user.screen_name
     followers = user.followers_count
     return username, followers, tmp
-

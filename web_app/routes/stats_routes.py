@@ -4,7 +4,9 @@ from web_app.models import User, Tweet
 import basilica
 import os
 
-BASILICA = basilica.Connection(os.getenv('BASILICA_KEY'))
+API_KEY = os.getenv('BASILICA_API_KEY')
+
+connection = basilica.Connection(API_KEY)
 
 stats_routes = Blueprint('stats_routes', __name__)
 
@@ -39,11 +41,11 @@ def predict():
     for tweet in user_b_tweets:
         labels.append(user_b.name)
         embedding.append(tweet.embeddings)
-    breakpoint()
+
     classifier = LogisticRegression()
     classifier.fit(embedding, labels)
 
-    example_embedding = BASILICA.embed_sentence(tweet_text)
+    example_embedding = connection.embed_sentence(tweet_text)
     result = classifier.predict([example_embedding])
     return render_template('results.html',
                            screen_name_a=screen_name_a,

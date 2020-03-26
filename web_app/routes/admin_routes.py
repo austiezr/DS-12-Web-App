@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, render_template, flash, redirect
+from flask import Blueprint, jsonify
 
 from web_app.models import db
 from web_app.twitter import get_tweets
