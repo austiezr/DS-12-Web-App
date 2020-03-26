@@ -1,1 +1,1 @@
-web: gunicorn web_app:__init__
+web: gunicorn web_app:create_app()
