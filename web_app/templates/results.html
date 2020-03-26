@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Results Page</title>
+{% endblock %}
+
+{% block content %}
+
+    <h2>Predicted Results:</h2>
+
+    <p>{{ screen_name_a }} vs. {{ screen_name_b }}</p>
+
+    <li>{{ tweet_text }} is more likely to have been said by {{ screen_name_most_likely }}</li>
+
+{% endblock %}

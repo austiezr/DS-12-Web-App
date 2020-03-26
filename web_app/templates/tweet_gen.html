@@ -1,0 +1,24 @@
+<!-- web_app/templates/new_tweet.html -->
+
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <h1>Generate Tweets</h1>
+
+    <p>Please enter parameters for tweets to generate!</p>
+
+    <form action="/tweets/generated" method="POST">
+
+        <label>Tag:</label>
+        <input type="text" name="q" placeholder="#hashtag" value="#hashtag">
+
+        <label>Number Of Tweets:</label>
+        <input type="number" name="count" placeholder="100" value="100">
+
+        <label>Since:</label>
+        <input type="date" name="since" placeholder="2019-10-21" value="2019-10-21">
+
+        <button>Submit</button>
+    </form>
+{% endblock %}

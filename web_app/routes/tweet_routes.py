@@ -2,6 +2,7 @@
 
 from flask import Blueprint, jsonify, request, render_template, flash, redirect
 from web_app.models import Tweet, User, parse_records, db
+import web_app.twitter
 
 tweet_routes = Blueprint('tweet_routes', __name__)
 
@@ -37,5 +38,20 @@ def create_tweet():
                           user_name=request.form['user_name'])
     db.session.add(created_tweet)
     db.session.commit()
-    flash(f"Tweet by '{created_tweet.user_name}' created successfully!", "success")
+    flash(f"Tweet by '{created_tweet.user_name}' created successfully!",
+          "success")
     return redirect(f"/tweets")
+
+
+@tweet_routes.route('/tweets/generate')
+def gen_tweets():
+    return render_template('tweet_gen.html')
+
+
+@tweet_routes.route('/tweets/generated', methods=['POST'])
+def get_tweets():
+    print('FORM DATA:', dict(request.form))
+    web_app.twitter.gen_tweets(q=request.form['q'],
+                               count=request.form['count'],
+                               since=request.form['since'])
+    return redirect('/tweets')

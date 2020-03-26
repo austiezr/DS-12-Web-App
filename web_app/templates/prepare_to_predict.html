@@ -1,0 +1,34 @@
+<!-- web_app/templates/prepare_to_predict.html -->
+
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Let's make a prediction</h2>
+
+    <p>Use the form below to predict which user is more likely to say a given tweet...</p>
+
+    <form action="/stats/predict" method="POST">
+
+        <label>Content:</label>
+        <input type="text" name="text" placeholder="This a tweet" value="This a tweet">
+        <br>
+
+        <label>User 1:</label>
+        <select name="screen_name_a">
+            {% for user in users %}
+                <option value={{user.name}}>{{ user.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <label>User 2:</label>
+        <select name="screen_name_b">
+            {% for user in users %}
+                <option value={{user.name}}>{{ user.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <button>Submit</button>
+    </form>
+{% endblock %}

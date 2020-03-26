@@ -1,0 +1,21 @@
+<!-- web_app/templates/view_user.html -->
+
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Tweets Page</title>
+{% endblock %}
+
+{% block content %}
+
+    <h2>Welcome to {{ username }}'s Page!</h2>
+
+    <p>{{ username }} has {{ followers }} followers.</p>
+
+    <ul>
+        {% for tweet in tmp %}
+            <li>"{{ tweet }}"</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

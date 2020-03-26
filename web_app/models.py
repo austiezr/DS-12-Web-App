@@ -3,6 +3,15 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
+import basilica
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+API_KEY = os.getenv('BASILICA_API_KEY')
+
+connection = basilica.Connection(API_KEY)
 
 db = SQLAlchemy()
 
@@ -10,17 +19,23 @@ migrate = Migrate()
 
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(128))
-    birthdate = db.Column(db.String(128))
-    dogs_cats = db.Column(db.String(128))
+    id = db.Column(db.BigInteger, primary_key=True)
+    name = db.Column(db.String(128), nullable=False)
+
+    def __repr__(self):
+        return '<User {}'.format(self.name)
 
 
 class Tweet(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_name = db.Column(db.String(128), db.ForeignKey('user.name'))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    content = db.Column(db.String(140))
+    id = db.Column(db.BigInteger, primary_key=True)
+    timestamp = db.Column(db.TIMESTAMP, index=True, default=datetime.utcnow)
+    content = db.Column(db.Unicode(280))
+    user_id = db.Column(db.BigInteger, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', backref=db.backref('tweets', lazy=True))
+    embeddings = db.Column(db.PickleType, nullable=False)
+
+    def __repr__(self):
+        return '<Tweet {}'.format(self.content)
 
 
 def parse_records(database_records):
