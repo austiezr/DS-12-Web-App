@@ -29,7 +29,7 @@ class User(db.Model):
 class Tweet(db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
     timestamp = db.Column(db.TIMESTAMP, index=True, default=datetime.utcnow)
-    content = db.Column(db.Unicode(300))
+    content = db.Column(db.Unicode(360))
     user_id = db.Column(db.BigInteger, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref=db.backref('tweets', lazy=True))
     embeddings = db.Column(db.PickleType, nullable=False)
